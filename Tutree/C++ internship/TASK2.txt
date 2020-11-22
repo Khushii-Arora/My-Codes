@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+ 
+
+void findAll(string X, string Y)
+{
+    // m and n stores size of string Y and X respectively
+    int m, n;
+ 
+    if ((m = Y.length()) > (n = X.length()))
+        return;
+ 
+ 
+    // insert all characters of string Y into set
+    for (int i = 0; i < m; i++)
+        set.insert(Y[i]);
+ 
+    
+ 
+     
+    for (int i = 0; i < n; i++)                                                // maintain a sliding window of size m with adjacent character of string X
+    {
+      
+        if (i < m)
+            window.insert(X[i]);
+    
+        else
+        {
+            
+            if (window == set)
+            {
+                cout << "substring " << X.substr(i - m, m) <<
+                    " present at index " << i - m << '\n';
+            }
+        
+           
+            
+            auto itr = window.find(X[i - m]);
+            if (itr != window.end())
+                window.erase(itr);
+ 
+            
+        }
+    }
+ 
+    // if last m characters of string X matches that of string Y,
+   
+    if (window == set)
+    {
+        cout << "substring " << X.substr(n - m, m) <<
+            " present at index " << n - m << '\n';
+    }
+}
+ 
+
+int main()
+{
+    string X = "XYYZXZYZXXYZ";
+    string Y = "XYZ";
+ 
+    findAll(X, Y);
+ 
+    getch();
+}
